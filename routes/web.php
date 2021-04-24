@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Controllers
+use App\Http\Controllers\ServiciosController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,4 +24,14 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+
+    // Servicios
+    Route::resource('servicios', ServiciosController::class);
+    Route::get('servicios/ajax/list', [ServiciosController::class, 'list']);
+    Route::post('servicios/etapas/store', [ServiciosController::class, 'etapas_tore'])->name('servicios.etapas.store');
+    Route::post('servicios/entregado/{id}', [ServiciosController::class, 'entregado'])->name('servicios.entregado');
+    Route::get('servicios/{id}/proforma/edit', [ServiciosController::class, 'proforma_edit'])->name('servicios.proforma.edit');
+    Route::post('servicios/{id}/proforma/update', [ServiciosController::class, 'proforma_update'])->name('servicios.proforma.update');
+    Route::get('servicios/{id}/proforma/print', [ServiciosController::class, 'proforma_print'])->name('servicios.proforma.print');
+
 });

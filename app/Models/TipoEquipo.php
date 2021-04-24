@@ -6,18 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Empleado extends Model
+class TipoEquipo extends Model
 {
-    use HasFactory;
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'cargo_id', 'user_id', 'nombre_completo', 'ci', 'celular', 'direccion'
+        'nombre', 'descripcion'
     ];
-
-    public function cargo()
-    {
-        return $this->belongsTo(Cargo::class, 'cargo_id');
-    }
 }

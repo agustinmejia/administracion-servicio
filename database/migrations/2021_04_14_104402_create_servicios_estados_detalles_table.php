@@ -17,7 +17,7 @@ class CreateServiciosEstadosDetallesTable extends Migration
             $table->id();
             $table->foreignId('servicio_id')->nullable()->constrained('servicios');
             $table->foreignId('empleado_id')->nullable()->constrained('empleados');
-            $table->decimal('costo', 8, 2)->nullable();
+            $table->foreignId('servicios_estado_id')->nullable()->constrained('servicios_estados');
             $table->text('observaciones')->nullable();
             $table->timestamps();
             $table->softDeletes();

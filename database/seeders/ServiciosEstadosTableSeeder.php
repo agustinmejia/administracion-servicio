@@ -52,7 +52,7 @@ class ServiciosEstadosTableSeeder extends Seeder
             3 => 
             array (
                 'id' => 4,
-                'nombre' => 'Entrega',
+                'nombre' => 'Entregado',
                 'descripcion' => 'Entrega y cierre del servicio.',
                 'orden' => 4,
                 'created_at' => '2021-04-14 12:31:18',

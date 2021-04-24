@@ -10,6 +10,10 @@ class ServiciosEstadosDetalle extends Model
     use HasFactory;
 
     protected $fillable = [
-        'servicio_id', 'empleado_id', 'observaciones'
+        'servicio_id', 'empleado_id', 'observaciones', 'servicios_estado_id'
     ];
+
+    public function estado(){
+        return $this->belongsTo(ServiciosEstado::class, 'servicios_estado_id');
+    }
 }

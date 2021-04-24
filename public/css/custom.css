@@ -1,0 +1,7 @@
+.panel-bordered{
+    border-color: #808B96 !important;    
+}
+
+.form-control, .select2-selection {
+    border-color: #B2BABB !important;
+}

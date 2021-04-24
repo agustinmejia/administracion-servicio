@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServiciosDetallesTable extends Migration
+class CreateTipoEquiposTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateServiciosDetallesTable extends Migration
      */
     public function up()
     {
-        Schema::create('servicios_detalles', function (Blueprint $table) {
+        Schema::create('tipo_equipos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('servicio_id')->nullable()->constrained('servicios');
-            $table->foreignId('tipo_equipo_id')->nullable()->constrained('tipo_equipos');
-            $table->string('equipo')->nullable();
+            $table->string('nombre')->nullable();
             $table->string('descripcion')->nullable();
-            $table->string('problema')->nullable();
-            $table->string('solucion')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +29,6 @@ class CreateServiciosDetallesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('servicios_detalles');
+        Schema::dropIfExists('tipo_equipos');
     }
 }

@@ -34,5 +34,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::generateFor('clientes');
         Permission::generateFor('empleados');
         Permission::generateFor('servicios_estados');
+        Permission::generateFor('servicios');
+        Permission::generateFor('tipo_equipos');
     }
 }

@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class ServiciosDetalle extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'servicio_id', 'tipo_equipo_id', 'equipo', 'descripcion', 'problema', 'solucion'
+    ];
+
+    public function tipo(){
+        return $this->belongsTo(TipoEquipo::class, 'tipo_equipo_id');
+    }
 }
