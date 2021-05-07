@@ -154,6 +154,7 @@ class ServiciosController extends Controller
                     'equipo' => $request->equipo[$i],
                     'descripcion' => $request->descripcion[$i],
                     'problema' => $request->problema[$i],
+                    'diagnostico' => $request->diagnostico[$i],
                     'solucion' => $request->solucion[$i],
                 ]);
             }
@@ -295,6 +296,7 @@ class ServiciosController extends Controller
                     'equipo' => $request->equipo[$i],
                     'descripcion' => $request->descripcion[$i],
                     'problema' => $request->problema[$i],
+                    'diagnostico' => $request->diagnostico[$i],
                     'solucion' => $request->solucion[$i],
                 ]);
             }
@@ -324,14 +326,19 @@ class ServiciosController extends Controller
 
     public function proforma_edit($id){
         $reg = Servicio::find($id);
-        return view('servicios.proforma', compact('reg'));
+        $cliente = Cliente::find($reg->cliente_id);
+        $detalles = DB::table('servicios_detalles as sd')
+                        ->join('tipo_equipos as te', 'te.id', 'sd.tipo_equipo_id')
+                        ->where('sd.servicio_id', $id)->where('sd.deleted_at', NULL)
+                        ->select('sd.*', 'te.nombre')->get();
+        return view('servicios.proforma', compact('reg', 'cliente', 'detalles'));
     }
 
     public function proforma_update($id, Request $request){
         Servicio::where('id', $id)->update([
             'proforma' => $request->proforma
         ]);
-        return redirect()->route('servicios.index')->with(['message' => 'Proforma editada exitosamente.', 'alert-type' => 'success']);
+        return redirect()->route('servicios.proforma.edit', ['id' => $id])->with(['message' => 'Proforma editada exitosamente.', 'alert-type' => 'success']);
     }
 
     public function proforma_print($id){

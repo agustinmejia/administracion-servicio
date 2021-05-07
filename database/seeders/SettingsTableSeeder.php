@@ -140,7 +140,7 @@ class SettingsTableSeeder extends Seeder
 <td style="width: 33.9074%;"><img src="/img/docs/logo.png" alt="" width="100" height="100" /></td>
 <td style="width: 36.4909%; text-align: right;">
 <h1 style="font-size: 30px;">PROFORMA</h1>
-<p>Fecha: 29-04-2021</p>
+<p>Fecha: #fecha#</p>
 </td>
 </tr>
 <tr>
@@ -149,51 +149,15 @@ class SettingsTableSeeder extends Seeder
 <p><span style="font-size: 18px; font-weight: bold;">Server la Estrella</span> <br />4168207017 <br />71142010 - 60202107 <br />C/ 9 de abril casi Esq. Felix Pinto Nro 215 <br />Sant&iacute;sima Trinidad - Beni - Bolivia</p>
 </td>
 <td style="width: 36.4909%; text-align: right;">
-<p><strong>Cliente:</strong> Nombre del cliente</p>
-<p><strong>NIT:</strong> 123456789</p>
-<p><strong>Cel:</strong> 75199157</p>
+<p><strong>Cliente:</strong> #razon_social#</p>
+<p><strong>NIT:</strong> #nit#</p>
+<p><strong>Cel:</strong> #celular#</p>
 </td>
 </tr>
 </tbody>
 </table>
 <p>&nbsp;</p>
-<table style="height: 78px; width: 100%; border-collapse: collapse; border-style: solid;" border="1" cellpadding="5">
-<thead>
-<tr style="height: 13px; background-color: #770a0a;">
-<th style="height: 13px; width: 24.9731%; color: white; font-size: 15px;">Tipo</th>
-<th style="height: 13px; width: 24.9731%; color: white; font-size: 15px;">Equipo</th>
-<th style="height: 13px; width: 24.9731%; color: white; font-size: 15px;">Detalles</th>
-<th style="height: 13px; width: 24.9731%; color: white; font-size: 15px;">Diagn&oacute;stico</th>
-</tr>
-</thead>
-<tbody>
-<tr style="height: 13px;">
-<td style="width: 24.9731%; height: 13px;">&nbsp;</td>
-<td style="width: 24.9731%; height: 13px;">&nbsp;</td>
-<td style="width: 24.9731%; height: 13px;">&nbsp;</td>
-<td style="width: 24.9731%; height: 13px;">&nbsp;</td>
-</tr>
-<tr style="height: 13px;">
-<td style="width: 24.9731%; height: 13px;">&nbsp;</td>
-<td style="width: 24.9731%; height: 13px;">&nbsp;</td>
-<td style="width: 24.9731%; height: 13px;">&nbsp;</td>
-<td style="width: 24.9731%; height: 13px;">&nbsp;</td>
-</tr>
-<tr style="height: 13px;">
-<td style="width: 24.9731%; height: 13px;">&nbsp;</td>
-<td style="width: 24.9731%; height: 13px;">&nbsp;</td>
-<td style="width: 24.9731%; height: 13px;">&nbsp;</td>
-<td style="width: 24.9731%; height: 13px;">&nbsp;</td>
-</tr>
-<tr style="height: 13px;">
-<td style="width: 24.9731%; height: 13px;">&nbsp;</td>
-<td style="width: 24.9731%; height: 13px;">&nbsp;</td>
-<td style="width: 24.9731%; height: 13px;">&nbsp;</td>
-<td style="width: 24.9731%; height: 13px;">&nbsp;</td>
-</tr>
-</tbody>
-</table>
-<p>&nbsp;</p>
+<p>#detalles#</p>
 <p>&nbsp;</p>
 <div style="position: fixed; bottom: 0px; width: 100%;"><hr style="background-color: #770a0a;" size="2" />
 <table style="height: 39px; width: 98.6058%; border-collapse: collapse;" border="0" cellpadding="5">
@@ -201,17 +165,17 @@ class SettingsTableSeeder extends Seeder
 <tr style="height: 13px;">
 <td style="width: 33.3333%; height: 13px;">&nbsp;</td>
 <td style="width: 33.1217%; height: 13px;"><strong>Total neto Bs.</strong></td>
-<td style="width: 33.4392%; height: 13px; text-align: right;"><strong style="font-size: 13px;">1000.00</strong></td>
+<td style="width: 33.4392%; height: 13px; text-align: right;"><span style="font-size: 13px;"><strong>#monto#</strong></span></td>
 </tr>
 <tr style="height: 13px;">
 <td style="width: 33.3333%; height: 13px;">&nbsp;</td>
 <td style="width: 33.1217%; height: 13px;">Total IVA (13%)</td>
-<td style="width: 33.4392%; height: 13px; text-align: right;">130.00</td>
+<td style="width: 33.4392%; height: 13px; text-align: right;">0.00</td>
 </tr>
 <tr style="height: 13px;">
 <td style="width: 33.3333%; height: 13px;">&nbsp;</td>
 <td style="width: 33.1217%; height: 13px;"><strong>Total Proforma Bs.</strong></td>
-<td style="width: 33.4392%; height: 13px; text-align: right;"><strong style="font-size: 15px;">1130.00</strong></td>
+<td style="width: 33.4392%; height: 13px; text-align: right;"><span style="font-size: 15px;"><strong>#monto#</strong></span></td>
 </tr>
 </tbody>
 </table>

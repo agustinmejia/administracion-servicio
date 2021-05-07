@@ -10,7 +10,7 @@ class ServiciosDetalle extends Model
     use HasFactory;
 
     protected $fillable = [
-        'servicio_id', 'tipo_equipo_id', 'equipo', 'descripcion', 'problema', 'solucion'
+        'servicio_id', 'tipo_equipo_id', 'equipo', 'descripcion', 'problema', 'diagnostico', 'solucion'
     ];
 
     public function tipo(){

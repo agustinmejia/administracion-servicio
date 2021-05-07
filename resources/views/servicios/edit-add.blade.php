@@ -81,10 +81,11 @@
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
-                                            <th style="width: 200px">Tipo</th>
+                                            <th style="width: 150px">Tipo</th>
                                             <th style="width: 200px">Equipo</th>
                                             <th>Descripción</th>
                                             <th>Problema</th>
+                                            <th>Diagnóstico</th>
                                             <th>Solución</th>
                                             <th style="width: 50px"></th>
                                         </thead>
@@ -167,6 +168,7 @@
                     <td><input type="text" name="equipo[]" class="form-control" placeholder="PC Sure 2021" value="${data ? data.equipo : ''}" required/></td>
                     <td><input type="text" name="descripcion[]" class="form-control" placeholder="2 GB RAM, Dual core..." value="${data ? data.descripcion ? data.descripcion : '' : ''}" /></td>
                     <td><input type="text" name="problema[]" class="form-control" placeholder="Problemas al encender..." value="${data ? data.problema : ''}" required/></td>
+                    <td><input type="text" name="diagnostico[]" class="form-control" placeholder="Ingrese el diagnóstico" value="${data ? data.diagnostico ? data.diagnostico : '' : ''}" /></td>
                     <td><input type="text" name="solucion[]" class="form-control" placeholder="Describa la posible solución" value="${data ? data.solucion ? data.solucion : '' : ''}" /></td>
                     <td><button type="button" onclick="removeTr(${indexTable})" class="btn btn-link"><i class="voyager-trash text-danger"></i></button></td>
                 </tr>
