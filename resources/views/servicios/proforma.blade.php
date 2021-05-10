@@ -11,7 +11,12 @@
         </a>
         <a href="{{ route('servicios.proforma.print', ['id' => $reg->id]) }}" class="btn btn-danger" target="_blank">
             <span class="glyphicon glyphicon-print"></span>&nbsp;
-            Imprimir</a>
+            Imprimir
+        </a>
+        <a href="{{ route('servicios.proforma.reset', ['id' => $reg->id]) }}" class="btn btn-primary">
+            <span class="voyager-refresh"></span>&nbsp;
+            Resetear
+        </a>
     </h1>
 @stop
 

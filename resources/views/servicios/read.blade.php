@@ -5,12 +5,10 @@
 @section('page_header')
     <h1 class="page-title">
         <i class="voyager-folder"></i> Servicio
-
         <a href="{{ route('servicios.edit', ['servicio' => $id]) }}" class="btn btn-info">
             <span class="glyphicon glyphicon-pencil"></span>&nbsp;
             Editar
         </a>
-        
         <a href="{{ route('servicios.index') }}" class="btn btn-warning">
             <span class="glyphicon glyphicon-list"></span>&nbsp;
             Volver a la lista

@@ -352,6 +352,13 @@ class ServiciosController extends Controller
         return redirect()->route('servicios.proforma.edit', ['id' => $id])->with(['message' => 'Proforma editada exitosamente.', 'alert-type' => 'success']);
     }
 
+    public function proforma_reset($id){
+        Servicio::where('id', $id)->update([
+            'proforma' => null
+        ]);
+        return redirect()->route('servicios.proforma.edit', ['id' => $id])->with(['message' => 'Proforma reseteada exitosamente.', 'alert-type' => 'success']);
+    }
+
     public function proforma_print($id){
         $reg = Servicio::find($id);
         return view('servicios.print.proforma', compact('reg'));
