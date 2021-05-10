@@ -27,7 +27,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     // Servicios
     Route::resource('servicios', ServiciosController::class);
-    Route::get('servicios/ajax/list', [ServiciosController::class, 'list']);
+    Route::get('servicios/ajax/list/{estado?}', [ServiciosController::class, 'list']);
     Route::post('servicios/etapas/store', [ServiciosController::class, 'etapas_tore'])->name('servicios.etapas.store');
     Route::post('servicios/entregado/{id}', [ServiciosController::class, 'entregado'])->name('servicios.entregado');
     Route::get('servicios/{id}/proforma/edit', [ServiciosController::class, 'proforma_edit'])->name('servicios.proforma.edit');

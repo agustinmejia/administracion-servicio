@@ -4,14 +4,25 @@
 
 @section('page_header')
     <div class="container-fluid">
-        <h1 class="page-title">
-            <i class="voyager-folder"></i> Servicios
-        </h1>
-        {{-- @can('add_servicios') --}}
-            <a href="{{ route('servicios.create') }}" class="btn btn-success btn-add-new">
-                <i class="voyager-plus"></i> <span>Crear</span>
-            </a>
-        {{-- @endcan --}}
+        <div class="row">
+            <div class="col-md-8">
+                <h1 class="page-title">
+                    <i class="voyager-folder"></i> Servicios
+                </h1>
+                {{-- @can('add_servicios') --}}
+                    <a href="{{ route('servicios.create') }}" class="btn btn-success btn-add-new">
+                        <i class="voyager-plus"></i> <span>Crear</span>
+                    </a>
+                {{-- @endcan --}}
+            </div>
+            <div class="col-md-4">
+                <select class="form-control" id="select-estado" style="margin-top: 20px">
+                    <option value="">Todos</option>
+                    <option value="pedientes">Pendientes</option>
+                    <option value="entregados">Entregados</option>
+                </select>
+            </div>
+        </div>
     </div>
 @stop
 
@@ -135,6 +146,10 @@
     <script src="{{ url('js/main.js') }}"></script>
     <script>
         $(document).ready(function() {
+            let searchParams = new URLSearchParams(window.location.search)
+            let estado = searchParams.get('estado')
+            $('#select-estado').val(estado);
+
             $('[data-toggle="tooltip"]').tooltip()
             let columns = [
                 { data: 'id', title: 'id' },
@@ -144,7 +159,13 @@
                 { data: 'observaciones', title: 'Observaciones' },
                 { data: 'action', title: 'Acciones', orderable: false, searchable: false },
             ]
-            customDataTable("{{ url('admin/servicios/ajax/list') }}", columns);
+
+            customDataTable("{{ url('admin/servicios/ajax/list') }}/"+estado, columns);
+
+            $('#select-estado').change(function(){
+                estado = $('#select-estado option:selected').val();
+                window.location = "{{ url('admin/servicios?estado=') }}"+estado;
+            });
         });
 
         function changeStatus(data){

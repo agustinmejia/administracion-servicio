@@ -38,11 +38,22 @@ class ServiciosController extends Controller
         return view('servicios.browse', compact('estados', 'empleados'));
     }
 
-    public function list()
+    public function list($estado = null)
     {
+        switch ($estado) {
+            case 'pedientes':
+                $query = "entregado = 0";
+                break;
+            case 'entregados':
+                    $query = "entregado = 1";
+                    break;
+            default:
+                $query = 1;
+                break;
+        }
         $data = Servicio::with(['detalle.tipo', 'estados_servicio.estado', 'cliente', 'empleado.cargo', 'detalle' => function($q){
             $q->where('deleted_at', NULL);
-        }])->where('deleted_at', NULL)->orderBy('id', 'DESC')->get();
+        }])->where('deleted_at', NULL)->whereRaw($query)->get();
         // return $data;
 
         return

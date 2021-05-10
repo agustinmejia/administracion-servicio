@@ -1,9 +1,10 @@
 function customDataTable(url, columns = []){
-    $('#dataTable').DataTable({
+    var data_table = $('#dataTable').DataTable({
         processing: true,
         serverSide: true,
         ajax: url,
         columns,
+        order: [[ 0, "desc" ]],
         language: {
             sProcessing: "Procesando...",
             sLengthMenu: "Mostrar _MENU_ registros",
