@@ -163,6 +163,24 @@ class DataTypesTableSeeder extends Seeder
                 'created_at' => '2021-04-22 17:41:28',
                 'updated_at' => '2021-04-22 17:41:28',
             ),
+            8 => 
+            array (
+                'id' => 12,
+                'name' => 'productos',
+                'slug' => 'productos',
+                'display_name_singular' => 'Producto',
+                'display_name_plural' => 'Productos',
+                'icon' => 'voyager-gift',
+                'model_name' => 'App\\Models\\Producto',
+                'policy_name' => NULL,
+                'controller' => NULL,
+                'description' => NULL,
+                'generate_permissions' => 1,
+                'server_side' => 0,
+                'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
+                'created_at' => '2021-05-11 15:57:45',
+                'updated_at' => '2021-05-11 15:58:28',
+            ),
         ));
         
         

@@ -4,12 +4,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @stop
 
-@section('page_title', ($type == 'edit' ? 'Editar' : 'Agregar').' Servicios')
+@section('page_title', ($type == 'edit' ? 'Editar' : 'Agregar').' Mantenimientos')
 
 @section('page_header')
     <h1 class="page-title">
-        <i class="voyager-folder"></i>
-        {{ ($type == 'edit' ? 'Editar' : 'Agregar').' Servicios' }}
+        <i class="voyager-tools"></i>
+        {{ ($type == 'edit' ? 'Editar' : 'Agregar').' Mantenimientos' }}
     </h1>
 @stop
 

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 // Controllers
 use App\Http\Controllers\ServiciosController;
+use App\Http\Controllers\VentasController;
 
 
 /*
@@ -35,4 +36,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('servicios/{id}/proforma/reset', [ServiciosController::class, 'proforma_reset'])->name('servicios.proforma.reset');
     Route::get('servicios/{id}/proforma/print', [ServiciosController::class, 'proforma_print'])->name('servicios.proforma.print');
 
+    Route::resource('ventas', VentasController::class);
+    Route::get('ventas/ajax/list', [VentasController::class, 'list']);
+    Route::get('ventas/{id}/proforma/generate', [VentasController::class, 'proforma_generate'])->name('ventas.proforma.generate');
 });

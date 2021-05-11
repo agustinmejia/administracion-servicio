@@ -1,19 +1,17 @@
 @extends('voyager::master')
 
-@section('page_title', 'Viendo Servicios')
+@section('page_title', 'Viendo Mantenimientos')
 
 @section('page_header')
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
                 <h1 class="page-title">
-                    <i class="voyager-folder"></i> Servicios
+                    <i class="voyager-tools"></i> Mantenimientos
                 </h1>
-                {{-- @can('add_servicios') --}}
-                    <a href="{{ route('servicios.create') }}" class="btn btn-success btn-add-new">
-                        <i class="voyager-plus"></i> <span>Crear</span>
-                    </a>
-                {{-- @endcan --}}
+                <a href="{{ route('servicios.create') }}" class="btn btn-success btn-add-new">
+                    <i class="voyager-plus"></i> <span>Crear</span>
+                </a>
             </div>
             <div class="col-md-4">
                 <select class="form-control" id="select-estado" style="margin-top: 20px">
