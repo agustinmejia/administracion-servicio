@@ -20,7 +20,6 @@ class CreateServiciosTable extends Migration
             $table->foreignId('cliente_id')->nullable()->constrained('clientes');
             $table->text('observaciones')->nullable();
             $table->date('fecha_entrega')->nullable();
-            $table->decimal('costo', 8, 2)->nullable();
             $table->smallInteger('entregado')->nullable()->default(0);
             $table->text('proforma')->nullable();
             $table->timestamps();

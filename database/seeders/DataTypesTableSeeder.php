@@ -179,7 +179,25 @@ class DataTypesTableSeeder extends Seeder
                 'server_side' => 0,
                 'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
                 'created_at' => '2021-05-11 15:57:45',
-                'updated_at' => '2021-05-11 15:58:28',
+                'updated_at' => '2021-05-11 18:16:49',
+            ),
+            9 => 
+            array (
+                'id' => 13,
+                'name' => 'registros_cajas',
+                'slug' => 'registros-cajas',
+                'display_name_singular' => 'Registro de Caja',
+                'display_name_plural' => 'Registros de Caja',
+                'icon' => 'voyager-dollar',
+                'model_name' => 'App\\Models\\RegistrosCaja',
+                'policy_name' => NULL,
+                'controller' => NULL,
+                'description' => NULL,
+                'generate_permissions' => 1,
+                'server_side' => 1,
+                'details' => '{"order_column":"id","order_display_column":"id","order_direction":"desc","default_search_key":"tipo","scope":null}',
+                'created_at' => '2021-05-19 14:41:11',
+                'updated_at' => '2021-05-19 14:43:37',
             ),
         ));
         

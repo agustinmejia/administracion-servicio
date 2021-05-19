@@ -22,6 +22,7 @@ class CreateServiciosDetallesTable extends Migration
             $table->string('problema')->nullable();
             $table->string('diagnostico')->nullable();
             $table->string('solucion')->nullable();
+            $table->decimal('precio', 8, 2)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

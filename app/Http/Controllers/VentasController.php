@@ -15,6 +15,7 @@ use App\Models\Empleado;
 use App\Models\Producto;
 use App\Models\Venta;
 use App\Models\VentasDetalle;
+use App\Models\RegistrosCaja;
 
 class VentasController extends Controller
 {
@@ -109,6 +110,7 @@ class VentasController extends Controller
                 'proforma' => $request->proforma ?? 0
             ]);
 
+            $total = 0;
             for ($i=0; $i < count($request->producto_id); $i++) { 
                 VentasDetalle::create([
                     'venta_id' => $venta->id,
@@ -117,7 +119,17 @@ class VentasController extends Controller
                     'costo' => $request->precio[$i],
                     'detalle' => $request->detalle[$i]
                 ]);
+                $total += $request->precio[$i] * $request->cantidad[$i];
             }
+
+            RegistrosCaja::create([
+                'user_id' => Auth::user()->id,
+                'detalle' => 'Venta Realizada',
+                'tipo' => 'ingreso',
+                'monto' => $total,
+                'venta_id' => $venta->id
+            ]);
+
             DB::commit();
             return redirect()->route('ventas.index')->with(['message' => 'Venta guardada exitosamente.', 'alert-type' => 'success', 'print' => $request->proforma ? $venta->id : 0]);
         } catch (\Throwable $th) {

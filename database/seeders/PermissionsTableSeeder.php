@@ -38,5 +38,6 @@ class PermissionsTableSeeder extends Seeder
         Permission::generateFor('tipo_equipos');
         Permission::generateFor('productos');
         Permission::generateFor('ventas');
+        Permission::generateFor('registros_cajas');
     }
 }

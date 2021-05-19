@@ -75,23 +75,22 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Costo total del servicio</label>
-                                <input type="number" name="costo" min="0" step="0.5" class="form-control" value="{{ isset($reg) ? $reg->costo : old('costo') }}" />
+                                {{-- <input type="number" name="costo" min="0" step="0.5" class="form-control" value="{{ isset($reg) ? $reg->costo : old('costo') }}" /> --}}
+                                <h3 class="text-muted text-right" id="label-total">0.00 Bs.</h3>
                             </div>
                             <div class="col-md-12">
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
-                                            <th style="width: 150px">Tipo</th>
-                                            <th style="width: 200px">Equipo</th>
+                                            <th>Equipo</th>
                                             <th>Descripción</th>
-                                            <th>Problema</th>
-                                            <th>Diagnóstico</th>
-                                            <th>Solución</th>
+                                            <th>Evaluación</th>
+                                            <th style="width: 150px">Precio</th>
                                             <th style="width: 50px"></th>
                                         </thead>
                                         <tbody id="table-detalle">
                                             <tr id="tr-ayuda">
-                                                <td colspan="6">
+                                                <td colspan="5">
                                                     <div class="alert alert-info">
                                                         <strong>Ayuda</strong>
                                                         <p>Presiona el botón <code>Agregar equipo</code> para agregar un item a la lista.</p>
@@ -101,7 +100,7 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <td colspan="6">
+                                                <td colspan="5">
                                                     <div class="text-right">
                                                         <button type="button" class="btn btn-dark btn-add"><i class="voyager-plus"></i> Agregar equipo</button>
                                                     </div>
@@ -158,18 +157,27 @@
                 $('#select-empleado_id').val(reg.empleado_id);
                 $('#select-empleado_id').select2().trigger('change');
 
+                getTotal();
+
             @endisset
         });
 
         function addTr(indexTable, optionsTipoEquipos, data = null){
             $('#table-detalle').append(`
                 <tr id="tr-${indexTable}" class="tr-item">
-                    <td><select name="tipo_equipo_id[]" id="select-tipo_equipo_id-${indexTable}" class="form-control" required>${optionsTipoEquipos}</select></td>
-                    <td><input type="text" name="equipo[]" class="form-control" placeholder="PC Sure 2021" value="${data ? data.equipo : ''}" required/></td>
-                    <td><input type="text" name="descripcion[]" class="form-control" placeholder="2 GB RAM, Dual core..." value="${data ? data.descripcion ? data.descripcion : '' : ''}" /></td>
-                    <td><input type="text" name="problema[]" class="form-control" placeholder="Problemas al encender..." value="${data ? data.problema : ''}" required/></td>
-                    <td><input type="text" name="diagnostico[]" class="form-control" placeholder="Ingrese el diagnóstico" value="${data ? data.diagnostico ? data.diagnostico : '' : ''}" /></td>
-                    <td><input type="text" name="solucion[]" class="form-control" placeholder="Describa la posible solución" value="${data ? data.solucion ? data.solucion : '' : ''}" /></td>
+                    <td>
+                        <select name="tipo_equipo_id[]" id="select-tipo_equipo_id-${indexTable}" class="form-control" required>${optionsTipoEquipos}</select>
+                        <input type="text" name="equipo[]" class="form-control" placeholder="PC Sure 2021" value="${data ? data.equipo : ''}" required/>
+                    </td>
+                    <td>
+                        <input type="text" name="descripcion[]" class="form-control" placeholder="2 GB RAM, Dual core..." value="${data ? data.descripcion ? data.descripcion : '' : ''}" />
+                        <input type="text" name="problema[]" class="form-control" placeholder="Problemas al encender..." value="${data ? data.problema : ''}" required/>
+                    </td>
+                    <td>
+                        <input type="text" name="diagnostico[]" class="form-control" placeholder="Ingrese el diagnóstico" value="${data ? data.diagnostico ? data.diagnostico : '' : ''}" />
+                        <input type="text" name="solucion[]" class="form-control" placeholder="Describa la posible solución" value="${data ? data.solucion ? data.solucion : '' : ''}" />
+                    </td>
+                    <td><input type="number" min="0" step="0.5" style="height: 70px; text-align: right; font-size: 25px" name="precio[]" class="form-control input-subtotal" onchange="getTotal()" onkeyup="getTotal()" placeholder="100" value="${data ? data.precio ? data.precio : '' : ''}" /></td>
                     <td><button type="button" onclick="removeTr(${indexTable})" class="btn btn-link"><i class="voyager-trash text-danger"></i></button></td>
                 </tr>
             `);
@@ -183,6 +191,7 @@
         function removeTr(index){
             $(`#tr-${index}`).remove();
             showHelp();
+            getTotal();
         }
 
         function showHelp(){
@@ -192,6 +201,14 @@
             }else{
                 $('#tr-ayuda').fadeOut('fast');
             }
+        }
+
+        function getTotal(){
+            let total = 0;
+            $('.input-subtotal').each(function(){
+                total += parseFloat($(this).val());
+            });
+            $('#label-total').text(`${total.toFixed(2)} Bs.`);
         }
     </script>
 @stop

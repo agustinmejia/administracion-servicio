@@ -17,6 +17,7 @@ use App\Models\ServiciosDetalle;
 use App\Models\ServiciosEstado;
 use App\Models\ServiciosEstadosDetalle;
 use App\Models\TipoEquipo;
+use App\Models\RegistrosCaja;
 
 class ServiciosController extends Controller
 {
@@ -154,8 +155,7 @@ class ServiciosController extends Controller
                 'empleado_id' => $request->empleado_id,
                 'cliente_id' => $request->cliente_id,
                 'observaciones' => $request->observaciones,
-                'fecha_entrega' => $request->fecha_entrega,
-                'costo' => $request->costo
+                'fecha_entrega' => $request->fecha_entrega
             ]);
 
             for ($i=0; $i < count($request->equipo); $i++) { 
@@ -167,9 +167,9 @@ class ServiciosController extends Controller
                     'problema' => $request->problema[$i],
                     'diagnostico' => $request->diagnostico[$i],
                     'solucion' => $request->solucion[$i],
+                    'precio' => $request->precio[$i],
                 ]);
             }
-
 
             $estados = ServiciosEstado::where('deleted_at', NULL)->orderBy('orden', 'ASC')->limit(2)->get();
             if($request->empleado_id){
@@ -229,6 +229,16 @@ class ServiciosController extends Controller
                 'empleado_id' => $empleado ? $empleado->id : null,
                 'observaciones' => $request->observaciones,
                 'servicios_estado_id' => $estado ? $estado->id : null
+            ]);
+
+            $detalle = ServiciosDetalle::where('servicio_id', $id)->where('deleted_at', NULL)->get();
+
+            RegistrosCaja::create([
+                'user_id' => Auth::user()->id,
+                'detalle' => 'Servicio de mantenimiento',
+                'tipo' => 'ingreso',
+                'monto' => $detalle->sum('precio'),
+                'servicio_id' => $id
             ]);
 
             return redirect()->route('servicios.index')->with(['message' => 'Servicio entregado y cerrado exitosamente.', 'alert-type' => 'success']);
@@ -295,7 +305,6 @@ class ServiciosController extends Controller
                 'cliente_id' => $request->cliente_id,
                 'observaciones' => $request->observaciones,
                 'fecha_entrega' => $request->fecha_entrega,
-                'costo' => $request->costo
             ]);
 
             // Eliminar el anterior detalle de los equipos
@@ -309,6 +318,7 @@ class ServiciosController extends Controller
                     'problema' => $request->problema[$i],
                     'diagnostico' => $request->diagnostico[$i],
                     'solucion' => $request->solucion[$i],
+                    'precio' => $request->precio[$i],
                 ]);
             }
 

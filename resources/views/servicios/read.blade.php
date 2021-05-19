@@ -46,7 +46,7 @@
                                 <h3 class="panel-title">Fecha ingreso</h3>
                             </div>
                             <div class="panel-body" style="padding-top:0;">
-                                <p>{{ date('d-M-Y', strtotime($reg->created_at)) }} <br> <small>{{ \Carbon\Carbon::parse($reg->created_at)->diffForHumans() }}</small></p>
+                                <p>{{ date('d-M-Y', strtotime($reg->created_at)) }} <small>{{ \Carbon\Carbon::parse($reg->created_at)->diffForHumans() }}</small></p>
                             </div>
                             <hr style="margin:0;">
                         </div>
@@ -56,7 +56,7 @@
                             </div>
                             <div class="panel-body" style="padding-top:0;">
                                 @if ($reg->fecha_entrega)
-                                    <p>{{ date('d-M-Y', strtotime($reg->fecha_entrega)) }} <br> <small>{{ \Carbon\Carbon::parse($reg->fecha_entrega)->diffForHumans() }}</small></p>                                    
+                                    <p>{{ date('d-M-Y', strtotime($reg->fecha_entrega)) }} <small>{{ \Carbon\Carbon::parse($reg->fecha_entrega)->diffForHumans() }}</small></p>                                    
                                 @else
                                     No definido
                                 @endif
@@ -83,7 +83,7 @@
                                 <h3 class="panel-title">Costo del servicio</h3>
                             </div>
                             <div class="panel-body" style="padding-top:0;">
-                                <p>{{ $reg->costo ? $reg->costo.' Bs.' : 'No definido' }}</p>
+                                <p>{{ $reg->detalle ? $reg->detalle->sum('precio').' Bs.' : 'No definido' }}</p>
                             </div>
                             <hr style="margin:0;">
                         </div>
@@ -110,6 +110,7 @@
                                                 <th>Descripción</th>
                                                 <th>Problema</th>
                                                 <th>Solución</th>
+                                                <th>Costo</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -120,6 +121,7 @@
                                                     <td>{{ $item->descripcion ?? 'No definida' }}</td>
                                                     <td>{{ $item->problema }}</td>
                                                     <td>{{ $item->solucion ?? 'No definida' }}</td>
+                                                    <td>{{ $item->precio ?? 'No definida' }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
