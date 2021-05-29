@@ -10,7 +10,7 @@ class Servicio extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'empleado_id', 'cliente_id', 'observaciones', 'fecha_entrega', 'costo', 'entregado', 'proforma'
+        'user_id', 'empleado_id', 'cliente_id', 'observaciones', 'fecha_entrega', 'costo', 'entregado', 'proforma', 'imagenes'
     ];
 
     public function detalle(){

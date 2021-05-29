@@ -22,6 +22,7 @@ class CreateServiciosTable extends Migration
             $table->date('fecha_entrega')->nullable();
             $table->smallInteger('entregado')->nullable()->default(0);
             $table->text('proforma')->nullable();
+            $table->string('imagenes')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

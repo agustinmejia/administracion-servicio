@@ -64,7 +64,7 @@ class ServiciosController extends Controller
                 $cliente = '
                     <div class="col-md-12">
                         <b>'.$row->cliente->nombre_completo.'</b><br>
-                        <small>Cel: '.($row->cliente->celular ?? 'No definido').'</small>
+                        <small>Cel:'.($row->cliente->celular ?? 'No definido').'</small>
                     </div>';
                 return $cliente;
             })
@@ -150,12 +150,22 @@ class ServiciosController extends Controller
 
         DB::beginTransaction();
         try {
+
+            $imagenes = [];
+            for ($i=0; $i < count($request->file('imagenes')); $i++) { 
+                $imagen = $this->save_image($request->file('imagenes')[$i], 'servicios');
+                if($imagen){
+                    array_push($imagenes, $imagen);
+                }
+            }
+
             $servicio = Servicio::create([
                 'user_id' => Auth::user()->id,
                 'empleado_id' => $request->empleado_id,
                 'cliente_id' => $request->cliente_id,
                 'observaciones' => $request->observaciones,
-                'fecha_entrega' => $request->fecha_entrega
+                'fecha_entrega' => $request->fecha_entrega,
+                'imagenes' => json_encode($imagenes)
             ]);
 
             for ($i=0; $i < count($request->equipo); $i++) { 
@@ -299,13 +309,23 @@ class ServiciosController extends Controller
 
         DB::beginTransaction();
         try {
-            $servicio = Servicio::where('id', $id)->update([
-                'user_id' => Auth::user()->id,
-                'empleado_id' => $request->empleado_id,
-                'cliente_id' => $request->cliente_id,
-                'observaciones' => $request->observaciones,
-                'fecha_entrega' => $request->fecha_entrega,
-            ]);
+
+            $servicio = Servicio::find($id);
+            $servicio->empleado_id = $request->empleado_id;
+            $servicio->cliente_id = $request->cliente_id;
+            $servicio->observaciones = $request->observaciones;
+            $servicio->fecha_entrega = $request->fecha_entrega;
+
+            $imagenes = $servicio->imagenes ? json_decode($servicio->imagenes) : [];
+            for ($i=0; $i < count($request->file('imagenes')); $i++) { 
+                $imagen = $this->save_image($request->file('imagenes')[$i], 'servicios');
+                if($imagen){
+                    array_push($imagenes, $imagen);
+                }
+            }
+            $servicio->imagenes = $imagenes;
+
+            $servicio->save();
 
             // Eliminar el anterior detalle de los equipos
             ServiciosDetalle::where('servicio_id', $id)->update(['deleted_at' => Carbon::now()]);
@@ -372,5 +392,25 @@ class ServiciosController extends Controller
     public function proforma_print($id){
         $reg = Servicio::find($id);
         return view('servicios.print.proforma', compact('reg'));
+    }
+
+    public function remove_image($id, Request $request){
+        try {
+            $servicio = Servicio::find($id);
+            $imagenes = [];
+            // dd($servicio->imagenes);
+            foreach (json_decode($servicio->imagenes) as $item) {
+                if($item != $request->imagen){
+                    array_push($imagenes, $item);
+                }
+            }
+            $servicio->imagenes = json_encode($imagenes);
+            $servicio->save();
+
+            return redirect()->route('servicios.edit', ['servicio' => $id])->with(['message' => 'Imagen eliminada correctamente.', 'alert-type' => 'success']);
+
+        } catch (\Throwable $th) {
+            return redirect()->route('servicios.edit', ['servicio' => $id])->with(['message' => 'Ocurrió un error.', 'alert-type' => 'error']);
+        }
     }
 }

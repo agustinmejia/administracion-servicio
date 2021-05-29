@@ -28,7 +28,25 @@
                                 <h3 class="panel-title">Nombre Completo/Empresa</h3>
                             </div>
                             <div class="panel-body" style="padding-top:0;">
-                                <p>{{ $reg->cliente->nombre_completo }}</p>
+                                <p>{{ $reg->cliente->nombre_completo }}
+                                    <a tabindex="0"
+                                        class="label label-info" 
+                                        role="button" 
+                                        data-html="true" 
+                                        data-toggle="popover" 
+                                        data-trigger="focus" 
+                                        title="Detalles de cliente" 
+                                        data-content="<div>
+                                                        <ul>
+                                                            <li><b>Nombre: </b> {{ $reg->cliente->nombre_completo }}</li>
+                                                            <li><b>Contacto: </b> {{ $reg->cliente->nombre_contacto ?? 'Ninguno' }}</li>
+                                                            <li><b>Celular: </b> {{ $reg->cliente->celular }}</li>
+                                                            <li><b>Email: </b> {{ $reg->cliente->email ?? 'Ninguno' }}</li>
+                                                        </ul>
+                                                    </div>"
+                                    >
+                                        Ver detalles
+                                    </a>
                             </div>
                             <hr style="margin:0;">
                         </div>
@@ -98,6 +116,30 @@
                         </div>
                         <div class="col-md-12">
                             <div class="panel-heading" style="border-bottom:0;">
+                                <h3 class="panel-title">Imagenes</h3>
+                            </div>
+                            <div class="panel-body" style="padding-top:0;">
+                                @if(isset($reg->imagenes))
+                                    <?php $images = json_decode($reg->imagenes); ?>
+                                    @if($images != null)
+                                        @forelse($images as $image)
+                                            <div class="img_settings_container" style="float:left;padding-right:15px;">
+                                                {{-- <a href="#" class="voyager-x remove-multi-image" style="position: absolute;" data-toggle="modal" data-target="#confirm_delete_modal" data-file_name="{{ $image }}"></a> --}}
+                                                <img src="{{ Voyager::image( str_replace('.', '-cropped.', $image) ) }}" style="max-width:150px; height:auto; clear:both; display:block; padding:2px; border:1px solid #ddd; margin-bottom:5px;">
+                                            </div>
+                                        @empty
+                                        <h6 class="text-muted">Ninguna</h6>
+                                        @endforelse
+                                    @else
+                                    <p>Ninguna</p>
+                                    @endif
+                                @endif
+                                <div class="clearfix"></div>
+                            </div>
+                            <hr style="margin:0;">
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel-heading" style="border-bottom:0;">
                                 <h3 class="panel-title">Detalle del servicio</h3>
                             </div>
                             <div class="panel-body" style="padding-top:0;">
@@ -140,7 +182,7 @@
 @section('javascript')
     <script>
         $(document).ready(function () {
-
+            $('[data-toggle="popover"]').popover()
         });
     </script>
 @stop

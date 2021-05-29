@@ -113,6 +113,23 @@
                             <div class="col-md-12">
                                 <textarea name="observaciones" class="form-control" rows="5" placeholder="En caso de haber alguna observación o recomendación, escrirla en este campo">{{ isset($reg) ? $reg->observaciones : old('observaciones') }}</textarea>
                             </div>
+                            <div class="form-group col-md-12" style="margin-top: 30px">
+                                <label>Imagenes</label>
+                                <br>
+                                @if(isset($reg->imagenes))
+                                    <?php $images = json_decode($reg->imagenes); ?>
+                                    @if($images != null)
+                                        @foreach($images as $image)
+                                            <div class="img_settings_container" style="float:left;padding-right:15px;">
+                                                <a href="#" class="voyager-x remove-multi-image" style="position: absolute;" data-toggle="modal" data-target="#confirm_delete_modal" data-file_name="{{ $image }}"></a>
+                                                <img src="{{ Voyager::image( str_replace('.', '-cropped.', $image) ) }}" style="max-width:150px; height:auto; clear:both; display:block; padding:2px; border:1px solid #ddd; margin-bottom:5px;">
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                @endif
+                                <div class="clearfix"></div>
+                                <input type="file" name="imagenes[]" id="" multiple accept="image/*" />
+                            </div>
                         </div>
 
                         <div class="panel-footer">
@@ -126,6 +143,32 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal de leiminar imagen --}}
+    <form action="{{ route('servicios.remove.image', ['id' => $reg->id]) }}" method="post">
+        <div class="modal fade modal-danger" id="confirm_delete_modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    @csrf
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"><i class="voyager-warning"></i> Confirmación</h4>
+                    </div>
+    
+                    <div class="modal-body">
+                        <h4>Deseas eliminar la imagen?</h4>
+                        <input type="hidden" name="imagen" >
+                    </div>
+    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger" id="confirm_delete">Sí, eliminar!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 @stop
 
 @section('javascript')
@@ -160,6 +203,12 @@
                 getTotal();
 
             @endisset
+
+            $('.remove-multi-image').click(function(){
+                let image = $(this).data('file_name');
+                console.log(image)
+                $('#confirm_delete_modal input[name="imagen"]').val(image);
+            });
         });
 
         function addTr(indexTable, optionsTipoEquipos, data = null){
@@ -206,7 +255,7 @@
         function getTotal(){
             let total = 0;
             $('.input-subtotal').each(function(){
-                total += parseFloat($(this).val());
+                total += $(this).val() ? parseFloat($(this).val()) : 0;
             });
             $('#label-total').text(`${total.toFixed(2)} Bs.`);
         }

@@ -6,7 +6,7 @@ use App\Models\Servicio;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ServioPolicy
+class ServicioPolicy
 {
     use HandlesAuthorization;
 

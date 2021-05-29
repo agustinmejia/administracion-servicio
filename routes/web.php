@@ -18,6 +18,10 @@ use App\Http\Controllers\VentasController;
 |
 */
 
+Route::get('login', function () {
+    return redirect('admin/login');
+})->name('login');
+
 Route::get('/', function () {
     return redirect('admin');
 });
@@ -35,6 +39,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('servicios/{id}/proforma/update', [ServiciosController::class, 'proforma_update'])->name('servicios.proforma.update');
     Route::get('servicios/{id}/proforma/reset', [ServiciosController::class, 'proforma_reset'])->name('servicios.proforma.reset');
     Route::get('servicios/{id}/proforma/print', [ServiciosController::class, 'proforma_print'])->name('servicios.proforma.print');
+    Route::post('servicios/{id}/remove/image', [ServiciosController::class, 'remove_image'])->name('servicios.remove.image');
 
     Route::resource('ventas', VentasController::class);
     Route::get('ventas/ajax/list', [VentasController::class, 'list']);
